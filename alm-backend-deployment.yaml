@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alm-backend
+  namespace: demo-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alm-backend
+  template:
+    metadata:
+      labels:
+        app: alm-backend
+    spec:
+      containers:
+        - name: alm-backend
+          image: ghcr.io/abnormal-log-manager/alm-backend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: ConnectionStrings__ShortLink_DB
+              value: "Host=postgres;Database=shorturl_db;Username=postgres;Password=09022001"
+      imagePullSecrets:
+        - name: ghcr-secret

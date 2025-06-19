@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alm-frontend
+  namespace: demo-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alm-frontend
+  template:
+    metadata:
+      labels:
+        app: alm-frontend
+    spec:
+      containers:
+        - name: alm-frontend
+          image: ghcr.io/abnormal-log-manager/alm-frontend:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: FLASK_ENV
+              value: "production"
+      imagePullSecrets:
+        - name: ghcr-secret
