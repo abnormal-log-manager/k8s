@@ -70,3 +70,25 @@ contexts:
     user: demo-user
 current-context: demo-context
 ```
+To apply a .crt certificate file (like the one you pasted) for use with kubectl and your cluster, follow these steps depending on your use case:
+## Option 1: Use the .crt file in your kubeconfig.yaml
+### Step-by-step:
+1. Save the certificate to a file:
+```bash
+nano /home/user/ca.crt
+```
+Paste your full certificate content (all BEGIN CERTIFICATE to END CERTIFICATE blocks), then save.
+2. Update your kubeconfig to use it:
+Find the clusters section of your kubeconfig.yaml and point it to your CA cert file:
+```yaml
+clusters:
+- name: my-cluster
+  cluster:
+    server: https://your-cluster-endpoint:6443
+    certificate-authority: /home/user/ca.crt
+```
+✅ Make sure the path is accessible and readable by the user running kubectl.
+3. Run your command:
+```bash
+kubectl --kubeconfig=/path/to/kubeconfig.yaml get pods
+```
