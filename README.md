@@ -10,5 +10,5 @@ kubectl --kubeconfig=/path/to/your/kubeconfig.yaml get nodes
 Or set it as an environment variable:
 export KUBECONFIG=/path/to/your/kubeconfig.yaml
 kubectl get nodes
-
-**## 2. Certificate Authority (CA) Handling**
+```
+## 2. Certificate Authority (CA) Handling
